@@ -7,6 +7,7 @@ import com.cyberbotics.webots.controller.DifferentialWheels;
  */
 public abstract class BBController extends DifferentialWheels {
     private static int MIN_SPEED = 0;
+    private static int SLOW_SPEED = 500;
     private static int MAX_SPEED = 1000;
 
     public abstract void  run();
@@ -19,6 +20,7 @@ public abstract class BBController extends DifferentialWheels {
     public void driveForward(){
         setSpeed(MAX_SPEED, MAX_SPEED);
     }
+    public void driveForwardSlow(){setSpeed(SLOW_SPEED,SLOW_SPEED);}
     public void driveBackward(){
         setSpeed(-MAX_SPEED, -MAX_SPEED);
     }
