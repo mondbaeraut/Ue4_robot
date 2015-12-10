@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Shared/Shared.iml" filepath="$PROJECT_DIR$/Shared/Shared.iml" />
       <module fileurl="file://$PROJECT_DIR$/Ue4_robot.iml" filepath="$PROJECT_DIR$/Ue4_robot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WallGrind/WallGrind.iml" filepath="$PROJECT_DIR$/WallGrind/WallGrind.iml" />
     </modules>
   </component>
 </project>

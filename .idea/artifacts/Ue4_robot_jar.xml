@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Ue4_robot:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Ue4_robot_jar</output-path>
+    <root id="archive" name="Ue4_robot.jar">
+      <element id="module-output" name="Ue4_robot" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/Controller.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/bangbang" />
+    </root>
+  </artifact>
+</component>

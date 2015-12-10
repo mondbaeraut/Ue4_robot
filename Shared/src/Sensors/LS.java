@@ -1,4 +1,4 @@
-package bangbang.Sensors;
+package Sensors;
 
 /**
  * Created by mod on 12/7/15.

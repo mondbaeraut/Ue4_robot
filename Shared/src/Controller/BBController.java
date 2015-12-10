@@ -1,4 +1,4 @@
-package bangbang;
+package Controller;
 
 import com.cyberbotics.webots.controller.DifferentialWheels;
 

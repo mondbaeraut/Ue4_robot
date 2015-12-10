@@ -1,4 +1,4 @@
-package bangbang.Sensors;
+package Sensors;
 
 import com.cyberbotics.webots.controller.DifferentialWheels;
 import com.cyberbotics.webots.controller.LightSensor;
