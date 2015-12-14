@@ -25,12 +25,12 @@ public class Robot extends DifferentialWheels {
     }
     private static int MIN_SPEED = 0;
     private static int SLOW_SPEED = 500;
-    private static int MAX_SPEED = 500;
+    private static int MAX_SPEED = 1000;
 
-    public void driveLeft(){
+    public void rotateLeft(){
         setSpeed(MIN_SPEED, MAX_SPEED);
     }
-    public void driveRight(){
+    public void rotateRight(){
         setSpeed(MAX_SPEED, MIN_SPEED);
     }
     public void driveForward(){

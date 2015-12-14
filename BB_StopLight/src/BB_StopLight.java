@@ -23,25 +23,38 @@ public class BB_StopLight {
     public void run() {
         boolean stop = false;
         while (robot.step(TIME_STEP) != -1) {
-            if(!stop){
-           if(robot.getDSSensor("NNO").getValue() > 1800 && robot.getLSSensor("N").getValue() > 1600){
-               robot.driveStop();
-               stop = true;
-               System.out.println("STOP");
-           }else {
-               boolean ok = true;
-               for (LightSensor s : robot.getLSSensors()) {
-                   if (robot.getLSSensor("N").getValue() > s.getValue()) {
-                       ok = false;
-                   }
-               }
-               if (ok) {
-                   robot.driveForward();
-               } else {
-                   robot.driveRight();
-               }
-           }
-        }}
-
+            if (!stop) {
+                if (robot.getDSSensor("NNO").getValue() > 1800 && robot.getLSSensor("N").getValue() > 1800) {
+                    robot.driveStop();
+                    stop = true;
+                    System.out.println("STOP");
+                } else if (robot.getDSSensor("NNO").getValue() > 1800 && robot.getLSSensor("N").getValue() > 1600) {
+                    boolean ok = true;
+                    for (LightSensor s : robot.getLSSensors()) {
+                        if (robot.getLSSensor("N").getValue() > s.getValue()) {
+                            ok = false;
+                        }
+                    }
+                    if (ok) {
+                        robot.driveForwardSlow();
+                    } else {
+                        robot.rotateRight();
+                    }
+                } else {
+                    boolean ok = true;
+                    for (LightSensor s : robot.getLSSensors()) {
+                        if (robot.getLSSensor("N").getValue() > s.getValue()) {
+                            ok = false;
+                        }
+                    }
+                    if (ok) {
+                        robot.driveForward();
+                    } else {
+                        robot.rotateRight();
+                    }
+                }
+            }
         }
+
     }
+}

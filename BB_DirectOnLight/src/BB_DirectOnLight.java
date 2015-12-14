@@ -31,7 +31,7 @@ public class BB_DirectOnLight {
             if(ok) {
                 robot.driveForward();
             } else{
-                robot.driveRight();
+                robot.rotateRight();
             }
         }
 
