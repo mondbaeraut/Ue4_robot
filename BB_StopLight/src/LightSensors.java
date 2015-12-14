@@ -1,26 +1,21 @@
 import com.cyberbotics.webots.controller.LightSensor;
 
-/**
- * Created by mod on 12/7/15.
- */
 public class LightSensors {
-    private static int LS_N = 0; // Sensor left
+    private static final int LS_N = 0; // Sensor left
     //private static int LS_NNO = 1;
-    private static int LS_NO = 1; // Sensor front left
-    private static int LS_O = 2;
-    private static int LS_SO = 3;
-    private static int LS_S = 4;
+    private static final int LS_NO = 1; // Sensor front left
+    private static final int LS_O = 2;
+    private static final int LS_SO = 3;
+    private static final int LS_S = 4;
 
-    private static int LS_SW = 5; // Sensor left
-    private static int LS_W = 6;
-    private static int LS_NW = 7; // Sensor front left
+    private static final int LS_SW = 5; // Sensor left
+    private static final int LS_W = 6;
+    private static final int LS_NW = 7; // Sensor front left
     private LightSensor[] sensors;
 
-    private int sensorenableinitvalue = 10;
-    private Robot robot = null;
+    private static final int sensorenableinitvalue = 10;
 
     public LightSensors(Robot robot) {
-        this.robot = robot;
         sensors = new LightSensor[]{
                 robot.getLightSensor("ls0"),
                 robot.getLightSensor("ls1"),
@@ -32,12 +27,13 @@ public class LightSensors {
                 robot.getLightSensor("ls7"),
 
         };
-        for(LightSensor sensor:sensors){
+        for (LightSensor sensor : sensors) {
             sensor.enable(sensorenableinitvalue);
         }
     }
-    public LightSensor getSensor(String sensor){
-        switch (sensor){
+
+    public LightSensor getSensor(String sensor) {
+        switch (sensor) {
             case "N":
                 return sensors[LS_N];
             case "NO":

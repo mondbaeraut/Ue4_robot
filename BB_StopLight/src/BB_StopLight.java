@@ -1,11 +1,8 @@
 import com.cyberbotics.webots.controller.LightSensor;
 
-/**
- * Created by FH-Studium on 14.12.2015.
- */
 public class BB_StopLight {
 
-    private static int TIME_STEP = 16;
+    private static final int TIME_STEP = 16;
     private Robot robot;
 
     public BB_StopLight() {
