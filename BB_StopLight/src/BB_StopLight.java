@@ -24,7 +24,7 @@ public class BB_StopLight {
         boolean stop = false;
         while (robot.step(TIME_STEP) != -1) {
             if(!stop){
-           if(robot.getDSSensor("NNO").getValue() > 1800 && robot.getLSSensor("N").getValue() > 1600){
+           if(robot.getDSSensor("NNO").getValue() > 1700 && robot.getLSSensor("N").getValue() > 1500){
                robot.driveStop();
                stop = true;
                System.out.println("STOP");
