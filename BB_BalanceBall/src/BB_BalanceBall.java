@@ -25,7 +25,16 @@ public class BB_BalanceBall{
 
     public void run() {
         while (robot.step(TIME_STEP) != -1){
-
+            if(robot.getDSSensor("NNO").getValue() > 1500 && robot.getDSSensor("NNW").getValue() > 1500){
+                robot.driveForwardSlow();
+            }else if(robot.getDSSensor("NNO").getValue() > 1500 && robot.getDSSensor("NNW").getValue() < 1500){
+                robot.driveLeft();
+            }
+            else if(robot.getDSSensor("NNO").getValue() < 1500 && robot.getDSSensor("NNW").getValue() > 1500){
+                robot.driveRight();
+            } else{
+                robot.driveForward();
+            }
         }
 
     }
