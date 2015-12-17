@@ -4,12 +4,12 @@
  * Created by mod on 12/7/15.
  */
 public class BB_WallGrind {
-    private DistanceSensors distanceSensors;
-    private static final int maxdistanceWest = 3000;
-    private static final int maxdistanceNorth = 2700;
+    private boolean isParallelToWall = false;
+    private int cParrallel = 0;
     private static int TIME_STEP = 16;
     private Robot robot;
     private int counter = 0;
+
     public BB_WallGrind() {
         robot = new Robot();
         robot.initDS();
@@ -23,23 +23,39 @@ public class BB_WallGrind {
 
     public void run() {
         boolean wallfound = false;
-        while (robot.step(TIME_STEP) != -1){
-            if(!wallfound){
-                if(!wallfound()){
+        while (robot.step(TIME_STEP) != -1) {
+            if (!wallfound) {
+                if (!wallfound()) {
                     robot.forward();
-                }else{
+                } else {
                     System.out.println("Wall Found");
+                    robot.stop();
                     wallfound = true;
                 }
-            }else {
-                System.out.println("Dreh dich bitch");
-                turn();
+            } else {
+                if(isParallelToWall){
+                    if(robot.getDSSensor("W").getValue() > 200){
+                        if(cParrallel > 5) {
+                            System.out.println("Rotate WWW");
+                            robot.left();
+                            robot.forward();
+                        } else{
+                            if(robot.getDSSensor("W").getValue() > 200){
+                                cParrallel++;
+                            }
+                        }
+                    }else {
+                        robot.forward();
+                    }
+                } else{
+                   isParallelToWall= turn();
+                }
             }
         }
 
     }
 
-    public boolean wallfound(){
+    public boolean wallfound() {
         boolean ballFound = false;
         double rightside = robot.getDSSensor("NNO").getValue();
         double leftside = robot.getDSSensor("NNW").getValue();
@@ -54,27 +70,31 @@ public class BB_WallGrind {
         }
         return ballFound;
     }
-    private double smoth(double value){
-        if(value > 100){
-            return 100;
-        }else{
-            return 0;
-        }
-    }
 
-    private double smoth2(double value){
-        if(value > 50){
+    private double smoth(double value) {
+        if (value > 100) {
             return 100;
-        }else{
-            return 0;
-        }
-    }
-
-    private void turn(){
-        if(robot.getDSSensor("W").getValue() < 50 && robot.getDSSensor("NNW").getValue() > 100 ){
-            robot.right();
         } else {
-            robot.forward();
+            return 0;
         }
+    }
+
+    private double smoth2(double value) {
+        if (value > 50) {
+            return 100;
+        } else {
+            return 0;
+        }
+    }
+
+    private boolean turn() {
+        if (robot.getDSSensor("NNW").getValue() > 50 && robot.getDSSensor("NNO").getValue() > 50) {
+            System.out.println("Rotate Right");
+            robot.right();
+        }else{
+           return true;
+        }
+    return false;
+
     }
 }
