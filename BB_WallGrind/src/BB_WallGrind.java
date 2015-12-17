@@ -9,7 +9,7 @@ public class BB_WallGrind {
     private static final int maxdistanceNorth = 2700;
     private static int TIME_STEP = 16;
     private Robot robot;
-
+    private int counter = 0;
     public BB_WallGrind() {
         robot = new Robot();
         robot.initDS();
@@ -23,52 +23,58 @@ public class BB_WallGrind {
 
     public void run() {
         boolean wallfound = false;
-
-        int west = (int) robot.getDSSensor("W").getValue();
-        while (robot.step(TIME_STEP) != -1) {
-            if (wallfound) {
-                if (positionParallelToWall()) {
+        while (robot.step(TIME_STEP) != -1){
+            if(!wallfound){
+                if(!wallfound()){
                     robot.forward();
-                    if(wallfound()){
-                        robot.backward();
-                        robot.right();
-                    }
-                } else {
-                    robot.backward();
+                }else{
+                    System.out.println("Wall Found");
+                    wallfound = true;
                 }
-            } else {
-                robot.forward();
-                wallfound = wallfound();
+            }else {
+                System.out.println("Dreh dich bitch");
+                turn();
             }
-
         }
 
     }
 
-    private boolean positionParallelToWall() {
-        int smoothvaluewest = smooth(robot.getDSSensor("W").getValue());
-        robot.forward();
-        if (robot.getDSSensor("W").getValue() == 50) {
-            return true;
-        } else if (smoothvaluewest < 50) {
-            robot.right();
-            return false;
+    public boolean wallfound(){
+        boolean ballFound = false;
+        double rightside = robot.getDSSensor("NNO").getValue();
+        double leftside = robot.getDSSensor("NNW").getValue();
+        double westside = robot.getDSSensor("W").getValue();
+        double eastside = robot.getDSSensor("O").getValue();
+        if (smoth(rightside) > 50 || smoth(leftside) > 50 || smoth(westside) > 50 || smoth(eastside) > 50) {
+            counter++;
+            if (counter > 10) {
+                ballFound = true;
+                counter = 0;
+            }
         }
-        return false;
+        return ballFound;
     }
-
-    public boolean wallfound() {
-        if (smooth(robot.getDSSensor("NNO").getValue()) > 50 && robot.getDSSensor("NNW").getValue() > 50) {
-            return true;
-        }
-        return false;
-    }
-
-    private int smooth(double input) {
-        if (input > 50) {
+    private double smoth(double value){
+        if(value > 100){
             return 100;
-        } else {
+        }else{
             return 0;
+        }
+    }
+
+    private double smoth2(double value){
+        if(value > 50){
+            return 100;
+        }else{
+            return 0;
+        }
+    }
+
+    private void turn(){
+        if(robot.getDSSensor("W").getValue() < 50 && robot.getDSSensor("NNW").getValue() > 100 ){
+            robot.right();
+        } else {
+            robot.forward();
         }
     }
 }

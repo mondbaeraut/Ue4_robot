@@ -1,4 +1,5 @@
 import com.cyberbotics.webots.controller.DifferentialWheels;
+import com.cyberbotics.webots.controller.DistanceSensor;
 import com.cyberbotics.webots.controller.LightSensor;
 
 /**
@@ -17,6 +18,13 @@ public class Robot extends DifferentialWheels {
     public void initLS(){
         lightSensors = new LightSensors(this);
     }
+    public DistanceSensor[] getDSSensors(){
+        return distanceSensors.getAll();
+    }
+    public DistanceSensor getDSSensor(String sensor){
+        return distanceSensors.getSensor(sensor);
+    }
+
     public LightSensor[] getLSSensors(){
         return lightSensors.getAll();
     }
@@ -25,7 +33,7 @@ public class Robot extends DifferentialWheels {
     }
     private static int MIN_SPEED = 0;
     private static int SLOW_SPEED = 500;
-    private static int MAX_SPEED = 500;
+    private static int MAX_SPEED = 1000;
 
     public void left(){
         setSpeed(MIN_SPEED, MAX_SPEED);

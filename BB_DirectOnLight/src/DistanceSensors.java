@@ -1,4 +1,5 @@
 import com.cyberbotics.webots.controller.DistanceSensor;
+import com.cyberbotics.webots.controller.LightSensor;
 
 /**
  * Created by mod on 12/7/15.
@@ -55,6 +56,10 @@ public class DistanceSensors  {
             default:
                 return sensors[DS_NNO];
         }
+    }
+
+    public DistanceSensor[] getAll() {
+        return sensors;
     }
 
 }
