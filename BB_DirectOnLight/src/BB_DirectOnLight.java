@@ -22,18 +22,25 @@ public class BB_DirectOnLight {
 
     public void run() {
         while (robot.step(TIME_STEP) != -1) {
-            boolean ok = true;
-            for(LightSensor s:robot.getLSSensors()) {
-                if (robot.getLSSensor("N").getValue() > s.getValue()){
-                   ok = false;
-                }
-            }
-            if(ok) {
-                robot.driveForward();
-            } else{
-                robot.driveRight();
-            }
+          if(scan()){
+              robot.forward();
+              robot.stop();
+          } else{
+              robot.stop();
+              robot.scan();
+          }
         }
 
-        }
     }
+    private boolean scan(){
+        for (LightSensor s : robot.getLSSensors()) {
+            if (robot.getLSSensor("N").getValue() > s.getValue()) {
+                System.out.println(robot.getLSSensor("N").getValue());
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
+
