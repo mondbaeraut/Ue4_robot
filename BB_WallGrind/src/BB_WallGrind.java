@@ -9,6 +9,8 @@ public class BB_WallGrind {
     private static int TIME_STEP = 16;
     private Robot robot;
     private int counter = 0;
+    private int counter2 = 0;
+    private double [] wallparts;
 
     public BB_WallGrind() {
         robot = new Robot();
@@ -24,7 +26,7 @@ public class BB_WallGrind {
     public void run() {
         boolean wallfound = false;
         while (robot.step(TIME_STEP) != -1) {
-            if (!wallfound) {
+           /* if (!wallfound) {
                 if (!wallfound()) {
                     robot.forward();
                 } else {
@@ -33,27 +35,20 @@ public class BB_WallGrind {
                     wallfound = true;
                 }
             } else {
-                if(isParallelToWall){
-                    if(robot.getDSSensor("W").getValue() > 200){
-                        if(cParrallel > 5) {
-                            System.out.println("Rotate WWW");
-                            robot.left();
-                            robot.forward();
-                        } else{
-                            if(robot.getDSSensor("W").getValue() > 200){
-                                cParrallel++;
-                            }
-                        }
-                    }else {
-                        robot.forward();
-                    }
-                } else{
-                   isParallelToWall= turn();
-                }
+                turn();
             }
+        }*/
+            goToWall();
+
+          //  goToWall();
+
+            turnRight();
+            driveLeftAfterWall();
+
         }
 
     }
+
 
     public boolean wallfound() {
         boolean ballFound = false;
@@ -88,13 +83,52 @@ public class BB_WallGrind {
     }
 
     private boolean turn() {
-        if (robot.getDSSensor("NNW").getValue() > 50 && robot.getDSSensor("NNO").getValue() > 50) {
+
+
+       if (robot.getDSSensor("NNW").getValue() > 50 && robot.getDSSensor("NNO").getValue() > 50) {
             System.out.println("Rotate Right");
             robot.right();
-        }else{
-           return true;
+        } else {
+           counter++;
+           robot.forward();
+
+       }
+        //robot.forward();
+        return false;
+
+    }
+
+    private boolean goToWall(){
+        if ((robot.getDSSensor("NNW").getValue()  + robot.getDSSensor("NNO").getValue() )/2 < 50 ){
+            counter++;
+            System.out.println("Forward");
+            if(counter > 5) {
+                robot.forward();
+                counter = 0;
+                return true;
+            }
         }
-    return false;
+        return false;
+    }
+
+
+
+    private void turnRight(){
+        if (robot.getDSSensor("NNW").getValue() > 50 && robot.getDSSensor("NNO").getValue() > 50&& robot.getDSSensor("NW").getValue() > 50){
+            counter2++;
+            if(counter2 > 5) {
+                System.out.println("Right");
+                robot.right();
+                counter2 = 0;
+            }
+        }
+
+    }
+
+    private void driveLeftAfterWall(){
+        if (robot.getDSSensor("W").getValue() < 50){
+            robot.left();
+        }
 
     }
 }
