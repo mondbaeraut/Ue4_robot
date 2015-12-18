@@ -3,53 +3,51 @@ import com.cyberbotics.webots.controller.DistanceSensor;
 import com.cyberbotics.webots.controller.LightSensor;
 
 /**
- * Created by FH-Studium on 14.12.2015.
+ * Created by mod on 12/18/15.
  */
-public class Robot extends DifferentialWheels {
+public abstract class Robot extends DifferentialWheels{
     private DistanceSensors distanceSensors = null;
     private LightSensors lightSensors = null;
-    public Robot(){
-        super();
+
+    public void initDS() {
+        distanceSensors = new DistanceSensors(this);
     }
 
-    public void initDS(){
-       distanceSensors = new DistanceSensors(this);
-    }
-    public void initLS(){
+    public void initLS() {
         lightSensors = new LightSensors(this);
     }
-    public DistanceSensor[] getDSSensors(){
-        return distanceSensors.getAll();
-    }
-    public DistanceSensor getDSSensor(String sensor){
-        return distanceSensors.getSensor(sensor);
+
+    public double[] getDSSensors() {
+        return distanceSensors.getAllValue();
     }
 
-    public LightSensor[] getLSSensors(){
-        return lightSensors.getAll();
+    public double getDSSensorValue(String sensor) {
+        return distanceSensors.getSensorValue(sensor);
     }
-    public LightSensor getLSSensor(String sensor){
+
+    public double getSmoothDSSensorValue(String sensor) {
+        return distanceSensors.getSmoothSensorValue(sensor);
+    }
+    
+    public double[] getLSSensors() {
+        return lightSensors.getAllValue();
+    }
+
+    public double getLSSensor(String sensor) {
         return lightSensors.getSensor(sensor);
     }
-    private static int MIN_SPEED = 0;
-    private static int SLOW_SPEED = 500;
-    private static int MAX_SPEED = 1000;
 
-    public void left(){
-        setSpeed(-MAX_SPEED, MAX_SPEED);
-    }
-    public void right(){
-        setSpeed(MAX_SPEED, -MAX_SPEED);
-    }
-    public void forward(){
-        setSpeed(MAX_SPEED, MAX_SPEED);
-    }
-    public void forwardSlow(){setSpeed(SLOW_SPEED, SLOW_SPEED);}
-    public void backward(){
-        setSpeed(-MAX_SPEED, -MAX_SPEED);
-    }
-    public void stop(){
-        setSpeed(MIN_SPEED, MIN_SPEED);
-    }
-    public void scan() { setSpeed(-SLOW_SPEED,MAX_SPEED);}
+    abstract void left();
+
+    abstract void right();
+
+    abstract void forward();
+
+    abstract void slowForward();
+
+    abstract void backward();
+
+    abstract void stop();
+
+    abstract void scan();
 }

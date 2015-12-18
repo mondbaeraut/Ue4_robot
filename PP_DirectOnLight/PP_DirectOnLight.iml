@@ -20,5 +20,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="Jama-1.0.3 (2)" level="project" />
+    <orderEntry type="library" name="Jama-1.0.3" level="project" />
   </component>
 </module>

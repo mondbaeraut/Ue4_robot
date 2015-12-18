@@ -31,21 +31,19 @@ public class PP_DirectOnLight {
     public void run() {
 
         Matrix k = new Matrix(new double[][]{
-                {0.,0.2,0.2,0.2,0.2},
-                {0.,0.2,0.2,0.2,0.2}
+                {0.15,0.05,0.01},
+                {0.05,0.01,0.15}
         });
 
-        Matrix c = new Matrix(new double[][]{{100.}, {100.},{100.}});
+        Matrix c = new Matrix(new double[][]{{100.}, {100.}});
         Matrix m = null;
 
         while(robot.step(TIME_STEP) != -1){
-            double valuemid = (robot.getLSSensor("NNW").getValue()-3000);
-            double valueO = robot.getLSSensor("O").getValue()-3000;
-            double valueW = robot.getLSSensor("W").getValue()-3000;
-            double valueSW = robot.getLSSensor("SW").getValue()-3000;
-            double valueSO = robot.getLSSensor("SO").getValue()-3000;
-            m = new Matrix(new double[][]{{valuemid},{valueO},{valueW},{valueSO},{valueSW}});
-            double[][] a = k.times(m).getArray();
+            double valuemid = (robot.getLSSensor("NNW").getValue());
+            double valueO = robot.getLSSensor("O").getValue();
+            double valueW = robot.getLSSensor("W").getValue();
+            m = new Matrix(new double[][]{{valuemid},{valueO},{valueW}});
+            double[][] a = k.times(m).plus(c).getArray();
             robot.setSpeed(a[0][0],a[0][1]);
         }
     }

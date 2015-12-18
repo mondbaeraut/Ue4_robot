@@ -1,4 +1,7 @@
 import com.cyberbotics.webots.controller.DistanceSensor;
+import sun.management.Sensor;
+
+import java.util.ArrayList;
 
 /**
  * Created by mod on 12/7/15.
@@ -14,11 +17,9 @@ public class DistanceSensors  {
     private static int DS_NW = 5;
     private static int DS_W = 6; // Sensor front left
     private static int DS_SW = 7;
-    private Robot robot;
 
 
     public DistanceSensors(Robot robot){
-        this.robot = robot;
         sensors = new DistanceSensor[]{
                 robot.getDistanceSensor("ps0"),
                 robot.getDistanceSensor("ps1"),
@@ -34,31 +35,47 @@ public class DistanceSensors  {
         }
     }
 
-    public DistanceSensor getSensor(String sensor){
+    public double getSensorValue(String sensor){
         switch (sensor){
             case "NNO":
-                return sensors[DS_NNO];
+                return sensors[DS_NNO].getValue();
             case "NO":
-                return sensors[DS_NO];
+                return sensors[DS_NO].getValue();
             case "O":
-                return sensors[DS_O];
+                return sensors[DS_O].getValue();
             case "SO":
-                return sensors[DS_SO];
+                return sensors[DS_SO].getValue();
             case "NNW":
-                return sensors[DS_NNW];
+                return sensors[DS_NNW].getValue();
             case"NW":
-                return sensors[DS_NW];
+                return sensors[DS_NW].getValue();
             case "W":
-                return sensors[DS_W];
+                return sensors[DS_W].getValue();
             case "SW":
-                return sensors[DS_SW];
+                return sensors[DS_SW].getValue();
             default:
-                return null;
+                return 0;
         }
     }
 
-    public DistanceSensor[] getAll() {
-        return sensors;
+    public double[] getAllValue() {
+        double[] values = new double[8];
+        DistanceSensor ds;
+        for(int i = 0; i < sensors.length;i++){
+            values[i] = sensors[i].getValue();
+        }
+        return values;
     }
 
+    private double smoth(double value){
+        if(value > 100){
+            return 100;
+        }else{
+            return 0;
+        }
+    }
+
+    public double getSmoothSensorValue(String sensor) {
+        return smoth(getSensorValue(sensor));
+    }
 }

@@ -1,3 +1,4 @@
+import com.cyberbotics.webots.controller.DistanceSensor;
 import com.cyberbotics.webots.controller.LightSensor;
 
 /**
@@ -17,6 +18,7 @@ public class LightSensors {
     private LightSensor[] sensors;
 
     private static final int sensorenableinitvalue = 10;
+    private double[] allValue;
 
 
     public LightSensors(Robot robot) {
@@ -36,31 +38,34 @@ public class LightSensors {
         }
     }
 
-    public LightSensor getSensor(String sensor) {
+    public double getSensor(String sensor) {
         switch (sensor) {
             case "NNO":
-                return sensors[LS_NNO];
+                return sensors[LS_NNO].getValue();
             case "NO":
-                return sensors[LS_NO];
+                return sensors[LS_NO].getValue();
             case "O":
-                return sensors[LS_O];
+                return sensors[LS_O].getValue();
             case "SO":
-                return sensors[LS_SO];
+                return sensors[LS_SO].getValue();
             case "NNW":
-                return sensors[LS_NNW];
+                return sensors[LS_NNW].getValue();
             case "NW":
-                return sensors[LS_SW];
+                return sensors[LS_SW].getValue();
             case "W":
-                return sensors[LS_W];
+                return sensors[LS_W].getValue();
             case "SW":
-                return sensors[LS_NW];
+                return sensors[LS_NW].getValue();
             default:
-                System.out.println("Default taken");
-                return sensors[LS_NW];
+                return 0.;
         }
     }
-
-    public LightSensor[] getAll() {
-        return sensors;
+    public double[] getAllValue() {
+        double[] values = new double[8];
+        DistanceSensor ds;
+        for(int i = 0; i < sensors.length;i++){
+            values[i] = sensors[i].getValue();
+        }
+        return values;
     }
 }
