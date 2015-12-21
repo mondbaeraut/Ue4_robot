@@ -44,7 +44,7 @@ public class BB_WallGrind {
 
 
     private void goToWall(){
-        if (robot.getDSSensor("NNO").getValue()   < simpleWallDistance  ){
+        if (robot.getDSSensor("NNO").getValue()   < simpleWallDistance   ){
             counter++;
             System.out.println("Forward");
             if(counter > 3) {
@@ -60,7 +60,7 @@ public class BB_WallGrind {
     private boolean turnRight(){
         if (robot.getDSSensor("NNW").getValue() > widerWallDistance && robot.getDSSensor("NNO").getValue() > widerWallDistance && robot.getDSSensor("NW").getValue() > widerWallDistance){
             counter2++;
-            if(counter2 > 3) {
+            if(counter2 > 1) {
                 System.out.println("Right");
                 robot.right();
                 counter2 = 0;
