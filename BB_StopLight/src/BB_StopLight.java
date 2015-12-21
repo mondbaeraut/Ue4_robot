@@ -10,6 +10,8 @@ public class BB_StopLight {
 
     private static int TIME_STEP = 16;
     private Robot robot;
+    private static int simpleWallDistance = 50;
+    private static int widerWallDistance = 60;
 
     public BB_StopLight() {
         robot = new Robot();
@@ -29,7 +31,7 @@ public class BB_StopLight {
             if(!stop) {
                 if (((robot.getLSSensor("NNO").getValue() + robot.getLSSensor("NNW").getValue()) / 2) > 2680) {
                     if (!isNearWall()) {
-                        validate();
+                        validateAndDrive();
                     }
                 } else {
                     stop = true;
@@ -52,7 +54,7 @@ public class BB_StopLight {
         return true;
     }
 
-    private void validate() {
+    private void validateAndDrive() {
         boolean north = true;
         for (LightSensor s : robot.getLSSensors()) {
             if (((robot.getLSSensor("NNO").getValue() + robot.getLSSensor("NNW").getValue()) / 2) > s.getValue()) {

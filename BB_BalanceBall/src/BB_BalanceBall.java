@@ -8,66 +8,72 @@ public class BB_BalanceBall {
     private static int TIME_STEP = 16;
     private Robot robot;
     private int counter = 0;
-    private double rightside;
-    private double leftside;
-    private double westside;
-    private double eastside;
+    private static int simpleWallDistance = 50;
+    private static int widerWallDistance = 60;
 
     public BB_BalanceBall() {
-        robot = new E_Puck();
+        robot = new Robot();
         robot.initDS();
     }
 
+
+
     public static void main(String[] args) {
-        BB_BalanceBall bb_balanceBall = new BB_BalanceBall();
-        bb_balanceBall.run();
+        BB_BalanceBall wallgrind = new BB_BalanceBall();
+        wallgrind.run();
     }
 
     public void run() {
-        boolean ballFound = false;
+        boolean ballfound = false;
         while(robot.step(TIME_STEP) != -1){
-           if(!ballFound){
-                if(!ballFound()){
+           if(!ballfound){
+                if(!ballfound()){
                     robot.forward();
                 }else{
-                    ballFound = true;
+                    ballfound = true;
                 }
            } else{
-                robot.stop();
-                scanForBall();
+               robot.stop();
+               moveWithBall();
            }
         }
 
     }
 
-    private void scanForBall() {
-        rightside = robot.getDSSensorValue("NNO");
-        leftside =  robot.getDSSensorValue("NNW");
-        westside =  robot.getDSSensorValue("W");
-        eastside =  robot.getDSSensorValue("O");
-        if (rightside > 50 && leftside > 50) {
+    private void moveWithBall() {
+        scanRobot();
+    }
+
+    private void scanRobot() {
+        double rightside = robot.getDSSensor("NNO").getValue();
+        double leftside =  robot.getDSSensor("NNW").getValue();
+        double westtside =  robot.getDSSensor("W").getValue();
+        double easttside =  robot.getDSSensor("O").getValue();
+        if (rightside > simpleWallDistance && leftside > simpleWallDistance) {
             robot.forward();
-        }else if(leftside > 50){
+        }else if(leftside > simpleWallDistance){
             robot.left();
-        } else if(rightside > 50){
+        } else if(rightside > simpleWallDistance){
             robot.right();
-        } else if(westside > 50){
+        } else if(westtside > simpleWallDistance){
             robot.left();
-        } else if(eastside > 50){
+        } else if(easttside > simpleWallDistance){
             robot.right();
         }
         else{
+            System.out.println("FAILED");
             robot.stop();
         }
     }
 
-    private boolean ballFound(){
+
+    private boolean ballfound(){
         boolean ballFound = false;
-        rightside = robot.getSmoothDSSensorValue("NNO");
-        leftside = robot.getSmoothDSSensorValue("NNW");
-        westside = robot.getSmoothDSSensorValue("W");
-        eastside = robot.getSmoothDSSensorValue("O");
-        if (rightside > 50 || leftside > 50 || westside > 50 || eastside > 50) {
+        double rightside = robot.getDSSensor("NNO").getValue();
+        double leftside = robot.getDSSensor("NNW").getValue();
+        double westside = robot.getDSSensor("W").getValue();
+        double eastside = robot.getDSSensor("O").getValue();
+        if (smoth(rightside) > simpleWallDistance || smoth(leftside) > simpleWallDistance || smoth(westside) > simpleWallDistance || smoth(eastside) > simpleWallDistance) {
             counter++;
             if (counter > 10) {
                 ballFound = true;
@@ -76,4 +82,13 @@ public class BB_BalanceBall {
         }
         return ballFound;
     }
+    private double smoth(double value){
+        if(value > 100){
+            return 100;
+        }else{
+            return 0;
+        }
+    }
+
+
 }

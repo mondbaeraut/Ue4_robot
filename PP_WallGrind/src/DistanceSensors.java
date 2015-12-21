@@ -53,12 +53,8 @@ public class DistanceSensors  {
             case "SW":
                 return sensors[DS_SW];
             default:
-                return null;
+                return sensors[DS_NNO];
         }
-    }
-
-    public DistanceSensor[] getAll() {
-        return sensors;
     }
 
 }

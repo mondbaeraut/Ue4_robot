@@ -1,11 +1,8 @@
 import com.cyberbotics.webots.controller.LightSensor;
 
-/**
- * Created by mod on 12/7/15.
- */
 public class LightSensors {
-    // private static final int LS_N = 0; // Sensor left
-    private static int LS_NNO = 0; // Sensor left
+   // private static final int LS_N = 0; // Sensor left
+   private static int LS_NNO = 0; // Sensor left
     private static int LS_NO = 1;
     private static int LS_O = 2; // Sensor front left
     private static int LS_SO = 3;
@@ -21,7 +18,7 @@ public class LightSensors {
 
     public LightSensors(Robot robot) {
         sensors = new LightSensor[]{
-                robot.getLightSensor("ls0"),
+               robot.getLightSensor("ls0"),
                 robot.getLightSensor("ls1"),
                 robot.getLightSensor("ls2"),
                 robot.getLightSensor("ls3"),

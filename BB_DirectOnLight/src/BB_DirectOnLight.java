@@ -6,7 +6,6 @@ import sun.management.Sensor;
  * Created by FH-Studium on 14.12.2015.
  */
 public class BB_DirectOnLight {
-    private int counter = 0;
     private static int TIME_STEP = 16;
     private Robot robot;
 
